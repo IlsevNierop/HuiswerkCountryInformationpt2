@@ -1,7 +1,7 @@
 {
   "name": "frontend-javascript-country-information-searcher",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Inleiding",
   "main": "src/app.js",
   "scripts": {
     "start": "parcel src/index.html",
