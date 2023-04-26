@@ -606,9 +606,8 @@ function generateInnerHtml(country) {
     const { flag , name , subregion , population , capital , currencies , languages  } = country;
     countryInformation.innerHTML = ` <div class="country-inner-row"> <img class="flag" src="${flag}" alt="Flag country">
                                         <h2>${name}</h2> </div>
-                                        <p>${name} is situated in ${subregion}. It has a population of ${population} people. </p>
-                                        <p>The capital is ${capital} and you can pay with ${generateStringFromArray(currencies, "'s")}.</p>
-                                        <p>They speak ${generateStringFromArray(languages, "")}.</p>`;
+                                        <p class="text-country-container">${name} is situated in ${subregion}. It has a population of ${population} people.<br> The capital is ${capital} and you can pay with ${generateStringFromArray(currencies, "'s")}.<br>
+                                        They speak ${generateStringFromArray(languages, "")}.</p>`;
 }
 
 },{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports) {
