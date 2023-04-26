@@ -7,21 +7,22 @@
     <title>Country Information - Country searcher</title>
 </head>
 <body>
-    <main>
+    <main class="outer-container">
+        <div class="inner-container">
         <h1>Let's search some countries</h1>
 
         <form id="submit-form">
             <label for="input-field">
-                <input  id="input-field" type="text" autocomplete="off" placeholder="Bijvoorbeeld Nederland of Peru">
+                <input  id="input-field" type="text" autocomplete="off" placeholder="Bijvoorbeeld Netherlands of Peru">
             </label>
             <button id="button-element" type="submit">Search</button>
         </form>
 
+        <article class="country-container" id="country-info"></article>
 
+            <p id="error" class="error-message"></p>
 
-
-
-
+        </div>
     </main>
 
 </body>

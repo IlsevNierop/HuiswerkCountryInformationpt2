@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.outer-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 1200px;
+    margin-inline: 1rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.error-message {
+    color: red;
+}
+
+.country-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.country-inner-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flag {
+    width: 30px;
+}
