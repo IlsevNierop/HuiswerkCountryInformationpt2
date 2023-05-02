@@ -571,25 +571,20 @@ submitForm.addEventListener("submit", (event)=>{
     fetchCountries(inputField.value);
     inputField.value = "";
 });
-//?fields=flag,name,population,subregion,capital,currencies,languages
 async function fetchCountries(countryQuery) {
     try {
-        const response = await (0, _axiosDefault.default).get("https://restcountries.com/v2/all?fields=flag,name,population,subregion,capital,currencies,languages");
-        const specificCountry = response.data.find((country)=>{
-            return country.name.toLowerCase() === countryQuery.toLowerCase();
-        });
-        if (specificCountry === undefined) errorHandling(specificCountry);
-        else generateInnerHtml(specificCountry);
+        //haal alleen de info op van het land wat gezocht wordt, dan wordt er sneller geladen (ipv info van alle landen ophalen, dan gaat het 5x langzamer)
+        //hierdoor werkt het ook als je op gedeelte van naam van land zoekt (bijvoorbeeld Korea, of Netherla, of USA)
+        const responseCountry = await (0, _axiosDefault.default).get(`https://restcountries.com/v2/name/${countryQuery}?fields=flag,name,population,subregion,capital,currencies,languages`);
+        generateInnerHtml(responseCountry.data);
     } catch (e) {
         errorHandling(e);
     }
 }
 function errorHandling(e) {
-    //errors afvangen in console
     console.error(e);
-    //errors communiceren in de UI
-    if (e === undefined) errorMessage.textContent = "This country doesn't exist, please try again.";
-    else if (e.response.status === 404) errorMessage.textContent = "Page not found | 404";
+    errorMessage.setAttribute("class", "error-message");
+    if (e.response.status === 404) errorMessage.textContent = "This country doesn't exist, please try again | 404";
     else if (e.response.status === 500) errorMessage.textContent = "Internal server error | 500";
     else errorMessage.textContent = "Something went wrong, sorry. Please try again.";
 }
@@ -603,7 +598,7 @@ function generateStringFromArray(array, stringToAddBehindName) {
     return s;
 }
 function generateInnerHtml(country) {
-    const { flag , name , subregion , population , capital , currencies , languages  } = country;
+    const { flag , name , subregion , population , capital , currencies , languages  } = country[0];
     countryInformation.innerHTML = ` <div class="country-inner-row"> <img class="flag" src="${flag}" alt="Flag country">
                                         <h2>${name}</h2> </div>
                                         <p class="text-country-container">${name} is situated in ${subregion}. It has a population of ${population} people.<br> The capital is ${capital} and you can pay with ${generateStringFromArray(currencies, "'s")}.<br>
