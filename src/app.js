@@ -20,6 +20,7 @@ async function fetchCountries(countryQuery) {
         //haal alleen de info op van het land wat gezocht wordt, dan wordt er sneller geladen (ipv info van alle landen ophalen, dan gaat het 5x langzamer)
         //hierdoor werkt het ook als je op gedeelte van naam van land zoekt (bijvoorbeeld Korea, of Netherla, of USA)
         const responseCountry = await axios.get(`https://restcountries.com/v2/name/${countryQuery}?fields=flag,name,population,subregion,capital,currencies,languages`);
+        console.log(responseCountry.data);
         generateInnerHtml(responseCountry.data);
     } catch (e) {
         errorHandling(e);
@@ -29,7 +30,9 @@ async function fetchCountries(countryQuery) {
 function errorHandling(e) {
     console.error(e);
     errorMessage.setAttribute('class', 'error-message');
-    if (e.response.status === 404) {
+    if (e === undefined) {
+        errorMessage.textContent = "This country doesn't exist, please try again. Or you've chosen Antarctica. This country cannot be displayed. | 404";
+    } else if (e.response.status === 404) {
         errorMessage.textContent = "This country doesn't exist, please try again | 404";
     } else if (e.response.status === 500) {
         errorMessage.textContent = "Internal server error | 500";
@@ -39,6 +42,9 @@ function errorHandling(e) {
 }
 
 function generateStringFromArray(array, stringToAddBehindName) {
+    if (array === undefined){
+        return "nothing";
+    }
     let s = "";
     for (let i = 0; i < array.length; i++) {
         s += `${array[i].name}${stringToAddBehindName}`
